@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="./index.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="w-[85vw] mx-auto" id="app">
+      <h1 class="text-3xl text-red-500 font-bold underline my-5">USER's</h1>
+      <form class="flex flex-wrap gap-4" id="form">
+        <div>
+          <label for="name">Name</label>
+          <input class="border" type="text" id="name" />
+        </div>
+        <div>
+          <label for="username">Username</label>
+          <input class="border" type="text" id="username" />
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input class="border" type="text" id="email" />
+        </div>
+        <button class="px-2.5 py-1 rounded-md bg-sky-500 text-white">
+          Submit
+        </button>
+      </form>
+      <div class="relative">
+        <ul class="mt-6" id="user-list">
+          <!-- <li
+            class="border rounded-lg p-1 text-lg flex justify-between items-center"
+          >
+            <p>asfafafaf</p>
+            <button class="rounded-md bg-red-500 text-white px-2 py-1">
+              Delete
+            </button>
+          </li> -->
+        </ul>
+        <div
+          class="absolute top-0 rounded-lg bg-blue-500 text-white border-red-500 border-4 p-4 w-[60%] hidden"
+          id="show-modal"
+        >
+          <!-- <h3 class="show-name">Name:</h3>
+          <h3 class="show-username">Username:</h3>
+          <h3 class="show-email">Email:</h3> -->
+        </div>
+      </div>
+    </div>
+    <!--  -->
+    <script src=".././app.js"></script>
+  </body>
+</html>
