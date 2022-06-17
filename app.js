@@ -20,7 +20,7 @@ function renderUsers(users) {
   usersListArray = users;
   let template = "";
   users.forEach((user) => {
-    template += `<li class="border rounded-lg p-1 mb-2 text-lg flex justify-between items-center")">
+    template += `<li class="border rounded-lg p-1 mb-2 text-lg flex justify-between items-center")" data-list-id="${user.id}">
         <textarea class="resize-none rounded-lg border h-10" data-textarea-id="${user.id}">${user.name}</textarea>
         <button class="rounded-md bg-red-500 text-white px-2 py-1" data-btn-id="${user.id}">Delete</button></li>`;
   });
@@ -86,23 +86,42 @@ form.addEventListener("submit", async (e) => {
 // *************************
 // *************************
 
-// const showUserModal = document.getElementById("show-modal");
-// showUserModal.classList.add("hidden");
+const showUserModal = document.getElementById("show-modal");
+showUserModal.classList.add("hidden");
 
-function showModal(id) {
-  //   showUserModal.classList.toggle("hidden");
-  //   //   showUserModal.classList.add("block");
-  //   const user = usersListArray.find((user) => user.id === id);
-  //   showUserModal.innerHTML = `
-  //   <h3 class="show-name">Name : ${user.name}</h3>
-  //   <h3 class="show-username">Username : ${user.username}</h3>
-  //   <h3 class="show-email">Email : ${user.email}</h3>
-  //   `;
-}
+userLists.addEventListener("click", (e) => {
+  if (!e.target.dataset.listId) return;
+  // console.log(e.target.dataset.listId);
+  showUserModal.innerHTML = "";
+  let id = e.target.dataset.listId;
+  const user = usersListArray.find((user) => user.id == id);
+  // console.log(usersListArray, typeof id);
 
-// window.addEventListener("click", (e) => {
-//   if (e.target.id !== "show-modal") {
-//     showUserModal.classList.add("hidden");
-//     console.log(showUserModal);
-//   }
-// });
+  const div = document.createElement("div");
+  div.innerHTML = `
+  <h1>NAME : ${user.name}</h1>
+  <h1>USERNAME : ${user.username}</h1>
+  <h1>Email : ${user.email}</h1>
+  `;
+  showUserModal.append(div);
+  showUserModal.classList.remove("hidden");
+  // document.getElementsByTagName("body")[0].classList.add("bg-zinc-800");
+});
+
+window.addEventListener("dblclick", (e) => {
+  if (e.target.id !== "show-modal") {
+    showUserModal.classList.add("hidden");
+    // console.log(showUserModal);
+  }
+});
+
+// function showModal(id) {
+//    showUserModal.classList.toggle("hidden");
+//   showUserModal.classList.add("block");
+//    const user = usersListArray.find((user) => user.id === id);
+//   showUserModal.innerHTML = `
+//   <h3 class="show-name">Name : ${user.name}</h3>
+//     <h3 class="show-username">Username : ${user.username}</h3>
+//    <h3 class="show-email">Email : ${user.email}</h3>
+//    `;
+// }
