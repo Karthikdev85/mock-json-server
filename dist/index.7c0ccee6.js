@@ -7,32 +7,34 @@ let usersListArray = [];
 async function fetchUsers() {
     let res = await fetch("http://localhost:3000/users");
     let users = await res.json();
-    usersListArray = users.map((user)=>{
-        return user;
-    });
     renderUsers(users);
 //
 }
 fetchUsers();
 function renderUsers(users) {
+    usersListArray = users;
     let template = "";
     users.forEach((user)=>{
-        template += `<li
-        class="border rounded-lg p-1 mb-2 text-lg flex justify-between items-center" data-id="${user.id}" onclick="showModal(${user.id})"
-      >
-        <p>${user.name}</p>
-        <button class="rounded-md bg-red-500 text-white px-2 py-1" onclick="deleteUser(${user.id})">
-          Delete
-        </button>
-      </li>`;
+        template += `<li class="border rounded-lg p-1 mb-2 text-lg flex justify-between items-center")">
+        <textarea class="resize-none border h-10">${user.name}</textarea>
+        <button class="rounded-md bg-red-500 text-white px-2 py-1" data-id="${user.id}">Delete</button></li>`;
     });
     userLists.innerHTML = template;
 }
-function deleteUser(id) {
-    fetch("http://localhost:3000/users/" + id, {
+userLists.addEventListener("click", async (e)=>{
+    if (!e.target.dataset.id) return;
+    let id = e.target.dataset.id;
+    await fetch("http://localhost:3000/users/" + id, {
         method: "DELETE"
-    }).then(()=>fetchUsers());
-}
+    });
+    await fetchUsers();
+});
+// function deleteUser(id) {
+//   // console.log(id);
+//   fetch("http://localhost:3000/users/" + id, {
+//     method: "DELETE",
+//   }).then(() => fetchUsers());
+// }
 form.addEventListener("submit", async (e)=>{
     e.preventDefault();
     const requestOptions = {
@@ -55,16 +57,17 @@ form.addEventListener("submit", async (e)=>{
 });
 // *************************
 // *************************
-const showUserModal = document.getElementById("show-modal");
+// const showUserModal = document.getElementById("show-modal");
+// showUserModal.classList.add("hidden");
 function showModal(id) {
-    showUserModal.classList.toggle("hidden");
-    //   showUserModal.classList.add("block");
-    const user1 = usersListArray.find((user)=>user.id === id);
-    showUserModal.innerHTML = `
-  <h3 class="show-name">Name : ${user1.name}</h3>
-  <h3 class="show-username">Username : ${user1.username}</h3>
-  <h3 class="show-email">Email : ${user1.email}</h3>
-  `;
+//   showUserModal.classList.toggle("hidden");
+//   //   showUserModal.classList.add("block");
+//   const user = usersListArray.find((user) => user.id === id);
+//   showUserModal.innerHTML = `
+//   <h3 class="show-name">Name : ${user.name}</h3>
+//   <h3 class="show-username">Username : ${user.username}</h3>
+//   <h3 class="show-email">Email : ${user.email}</h3>
+//   `;
 } // window.addEventListener("click", (e) => {
  //   if (e.target.id !== "show-modal") {
  //     showUserModal.classList.add("hidden");

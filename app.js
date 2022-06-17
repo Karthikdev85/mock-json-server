@@ -9,9 +9,7 @@ let usersListArray = [];
 async function fetchUsers() {
   let res = await fetch("http://localhost:3000/users");
   let users = await res.json();
-  usersListArray = users.map((user) => {
-    return user;
-  });
+
   renderUsers(users);
   //
 }
@@ -19,26 +17,50 @@ async function fetchUsers() {
 fetchUsers();
 
 function renderUsers(users) {
+  usersListArray = users;
   let template = "";
   users.forEach((user) => {
-    template += `<li
-        class="border rounded-lg p-1 mb-2 text-lg flex justify-between items-center" data-id="${user.id}" onclick="showModal(${user.id})"
-      >
-        <p>${user.name}</p>
-        <button class="rounded-md bg-red-500 text-white px-2 py-1" onclick="deleteUser(${user.id})">
-          Delete
-        </button>
-      </li>`;
+    template += `<li class="border rounded-lg p-1 mb-2 text-lg flex justify-between items-center")">
+        <textarea class="resize-none rounded-lg border h-10" data-textarea-id="${user.id}">${user.name}</textarea>
+        <button class="rounded-md bg-red-500 text-white px-2 py-1" data-btn-id="${user.id}">Delete</button></li>`;
   });
 
   userLists.innerHTML = template;
 }
 
-function deleteUser(id) {
-  fetch("http://localhost:3000/users/" + id, {
+userLists.addEventListener("change", async (e) => {
+  if (!e.target.dataset.textareaId) return;
+  // console.log(e.target.value);
+  const requestOptions = {
+    method: "PATCH",
+    body: JSON.stringify({
+      name: e.target.value,
+    }),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+  };
+  let id = e.target.dataset.textareaId;
+  await fetch("http://localhost:3000/users/" + id, requestOptions);
+  await fetchUsers();
+});
+
+userLists.addEventListener("click", async (e) => {
+  if (!e.target.dataset.btnId) return;
+  let id = e.target.dataset.btnId;
+  await fetch("http://localhost:3000/users/" + id, {
     method: "DELETE",
-  }).then(() => fetchUsers());
-}
+  });
+
+  await fetchUsers();
+});
+
+// function deleteUser(id) {
+//   // console.log(id);
+//   fetch("http://localhost:3000/users/" + id, {
+//     method: "DELETE",
+//   }).then(() => fetchUsers());
+// }
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -46,7 +68,7 @@ form.addEventListener("submit", async (e) => {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      id: Math.floor(Math.random() * 10000),
+      id: Math.floor(Math.random() * 100000),
       name: inputName.value,
       username: inputUsername.value,
       email: inputEmail.value,
@@ -64,18 +86,18 @@ form.addEventListener("submit", async (e) => {
 // *************************
 // *************************
 
-const showUserModal = document.getElementById("show-modal");
+// const showUserModal = document.getElementById("show-modal");
+// showUserModal.classList.add("hidden");
 
 function showModal(id) {
-  showUserModal.classList.toggle("hidden");
-  //   showUserModal.classList.add("block");
-
-  const user = usersListArray.find((user) => user.id === id);
-  showUserModal.innerHTML = `
-  <h3 class="show-name">Name : ${user.name}</h3>
-  <h3 class="show-username">Username : ${user.username}</h3>
-  <h3 class="show-email">Email : ${user.email}</h3>
-  `;
+  //   showUserModal.classList.toggle("hidden");
+  //   //   showUserModal.classList.add("block");
+  //   const user = usersListArray.find((user) => user.id === id);
+  //   showUserModal.innerHTML = `
+  //   <h3 class="show-name">Name : ${user.name}</h3>
+  //   <h3 class="show-username">Username : ${user.username}</h3>
+  //   <h3 class="show-email">Email : ${user.email}</h3>
+  //   `;
 }
 
 // window.addEventListener("click", (e) => {

@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "parcel ./src/index.html",
-    "json-server": "json-server --watch db.json"
+    "start": "parcel ./src/index.html",
+    "json-server": "json-server --watch db.json --delay 100"
   },
   "keywords": [],
   "author": "",
