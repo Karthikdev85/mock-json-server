@@ -7,50 +7,100 @@
   </head>
   <body class="relative min-h-[90vh]">
     <div class="w-[85vw] mx-auto" id="app">
-      <h1 class="text-3xl text-red-500 font-bold underline my-5">USER's</h1>
-      <form class="flex flex-wrap gap-4" id="form">
-        <div>
-          <label for="name">Name</label>
-          <input class="border w-60" type="text" id="name" required />
+      <h1
+        class="text-3xl bg-sky-400 text-white text-center w-44 font-bold my-5 rounded-lg p-2 mx-auto cursor-pointer"
+        id="add-user"
+      >
+        Add User
+      </h1>
+      <form class="hidden" id="form">
+        <div class="flex flex-wrap gap-4">
+          <div>
+            <label for="name">Name</label>
+            <input class="border w-52" type="text" id="name" required />
+          </div>
+          <div>
+            <label for="username">Username</label>
+            <input class="border w-52" type="text" id="username" required />
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input class="border w-52" type="email" id="email" required />
+          </div>
+          <button class="px-2.5 py-1 rounded-md bg-cyan-500 text-white">
+            ADD
+          </button>
         </div>
-        <div>
-          <label for="username">Username</label>
-          <input class="border w-60" type="text" id="username" required />
-        </div>
-        <div>
-          <label for="email">Email</label>
-          <input class="border w-60" type="email" id="email" required />
-        </div>
-        <button class="px-2.5 py-1 rounded-md bg-sky-500 text-white">
-          Submit
-        </button>
       </form>
       <div>
         <ul class="mt-6" id="user-list">
-          <!-- <li
-            class="border rounded-lg p-1 text-lg flex justify-between items-center"
-            >
-            <textarea class="resize-none border h-10">${user.name}</textarea>
-            <button class="rounded-md bg-red-500 text-white px-2 py-1">
-              Delete
-            </button>
-          </li> -->
+          <!-- <li class="border rounded-lg p-1 mb-2 text-lg flex justify-between items-center" data-list-id="${user.id}">
+                <p class="w-56">${user.name}</p>
+
+        <button class="rounded-md bg-orange-500 text-white px-2 py-1"  onclick="showPreview(${user.id})">Preview</button>
+        <button class="rounded-md bg-yellow-400 text-white px-2 py-1"  onclick="updateUser(${user.id})">Update</button>
+        <button class="rounded-md bg-red-600 text-white px-2 py-1" onclick="deleteUser(${user.id})">Delete</button></li> -->
         </ul>
       </div>
     </div>
     <!-- Modal -->
     <div
-      class="absolute left-[50%] top-[50%] -translate-x-2/4 -translate-y-2/4 w-[40%] bg-sky-500 text-yellow-100 mx-auto rounded-lg p-10 leading-10"
+      class="absolute left-[50%] top-[40%] -translate-x-2/4 -translate-y-2/4 w-[40%] bg-sky-200 mx-auto rounded-lg p-10 leading-10"
       id="show-modal"
     >
-      <!-- <div>
-        <h1>NAME :</h1>
-        <h1>USERNAME :</h1>
-        <h1>Email :</h1>
-      </div> -->
+      <!-- <div class="mx-auto w-7 h-7 rotate-45 text-6xl cursor-pointer -translate-y-9" id="close">+</div>
+  <div class="text-lg leading-8 mx-auto">
+    <h1>NAME : ${user.name}</h1>
+    <h1>USERNAME : ${user.username}</h1>
+    <h1>Email : ${user.email}</h1>
+  </div> -->
     </div>
+    <!-- update form -->
+    <form
+      class="absolute left-[50%] top-[40%] -translate-x-2/4 -translate-y-2/4 bg-blue-900 p-8 w-80 rounded-lg hidden"
+      id="update-form"
+    >
+      <div class="relative">
+        <div
+          class="absolute -right-5 text-right text-white rotate-45 text-6xl cursor-pointer -translate-y-10"
+          onclick="closeUpdateForm()"
+          id="close-update"
+        >
+          +
+        </div>
+      </div>
+      <div class="mx-auto">
+        <div>
+          <label class="block text-white" for="update-name">Name</label>
+          <input
+            class="border w-52 rounded-md mb-4"
+            type="text"
+            id="update-name"
+          />
+        </div>
+        <div>
+          <label class="block text-white" for="update-username">Username</label>
+          <input
+            class="border w-52 rounded-md mb-4"
+            type="text"
+            id="update-username"
+          />
+        </div>
+        <div>
+          <label class="block text-white" for="update-email">Email</label>
+          <input
+            class="border w-52 rounded-md mb-4"
+            type="email"
+            id="update-email"
+          />
+        </div>
+        <button class="px-2.5 py-1 rounded-md bg-cyan-500 text-white">
+          UPDATE
+        </button>
+      </div>
+    </form>
 
     <!--  -->
-    <script type="module" src=".././app.js"></script>
+    <script src="../app.js"></script>
   </body>
 </html>
